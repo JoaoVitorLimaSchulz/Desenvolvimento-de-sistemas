@@ -1,0 +1,61 @@
+/* Seletor de todos os elementos */
+*{
+    margin: 0;
+}
+
+h3{
+    color: rgb(197, 51, 51) ;
+    font-weight: 900;
+    font-size: 80px;
+    text-align: center;
+}
+
+/*seletor de classe*/
+.texto{
+    /* altera a cor do texto */
+    color: brown;
+    /* altera o tamanho do texto */
+    font-size:50px;
+    /* altera a posição do texto horizontamente */
+    text-align: center;
+    /* Define a fonte do texto */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    /* altera o peso do texto */
+    font-weight: 300;
+    /* altera a decoração do texto */
+    text-decoration: underline;
+}
+/*seletor de id*/
+
+#texto{
+    color:cadetblue;
+    text-align: end;
+    font-size: 70px;
+}
+
+.box{
+   /* Define a largura/vw */
+    width: 20vw;
+    /* define a altura/vh */
+    height: 20vh;
+    /* define o espaço externo - margem */
+    margin-top: 50px 50px 50px 50px;
+    /* define o espaço interno */
+    padding: 60px;
+    /* define a borda */
+    border: 1px solid green;
+}
+.position{
+    /* A forma de posicionamento */
+    display: flex;
+    /* posicionar verticaltamente */
+    align-items: center;
+    /* posicionar horizontamente */
+    justify-content: center;
+}
+.position2{
+   /* NÂO USA ISSO */
+    position: absolute ;
+    top: 10px;
+    right: 10px;
+}
