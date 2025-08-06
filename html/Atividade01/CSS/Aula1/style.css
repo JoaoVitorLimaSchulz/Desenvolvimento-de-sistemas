@@ -4,7 +4,7 @@
 }
 
 h3{
-    color: rgb(197, 51, 51) ;
+    color: rgb(240, 216, 216) ;
     font-weight: 900;
     font-size: 80px;
     text-align: center;
@@ -13,7 +13,7 @@ h3{
 /*seletor de classe*/
 .texto{
     /* altera a cor do texto */
-    color: brown;
+    color: white;
     /* altera o tamanho do texto */
     font-size:50px;
     /* altera a posição do texto horizontamente */
@@ -55,7 +55,44 @@ h3{
 }
 .position2{
    /* NÂO USA ISSO */
-    position: absolute ;
+   color: white;
+   position: absolute ;
     top: 10px;
     right: 10px;
+}
+body{
+   /* define a cor do fundo */
+    background-color: black;
+    /* altera o fundo */
+    background-image:url(https://media.istockphoto.com/id/113494458/pt/foto/fogo-isolado-no-fundo-preto.jpg?s=612x612&w=0&k=20&c=y415H7w9huMhi3LOBEUdHkc2rpbNs8_GeX3uD5lX-a8=);
+    /* define as repetições da imagem de fundo */
+    background-repeat: no-repeat;
+   /* posição da imagem de fundo */
+    background-position: center;
+    /* tamanho da imagem de fundo */
+    background-size: cover;
+}
+
+.visuais{
+    background-color: blue;
+    /* opacidade do elemento(quão transparente ele é) */
+    opacity: 75%;
+    /* adiciona sombra- y, x, blur, spreand */
+    box-shadow: 100px 50px 100px 100px;
+    /* arredonda o elemento */
+    border-radius: 1000px;
+    /* transforma o elemento - rotacionar */
+    transform: rotate(0.8turn);
+    transition: 10s, transform 2s ;
+}
+.visuais:hover{
+    width: 1000px;
+    height: 1000px;
+    background-color: rgb(226, 43, 67);
+    transform: rotate(10.8turn);
+}
+.cursor{
+    overflow: auto;
+    overflow-x: hidden;
+    cursor:sw-resize ;
 }
