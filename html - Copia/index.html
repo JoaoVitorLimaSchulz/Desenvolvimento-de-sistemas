@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1 - HTML</title>
+</head>
+<body>
+    </header>
+    
+    <!--  tags de tutulos e subtitulos -->
+    <h1> Título 1</h1>
+    <h2> Título 2</h2>
+    <h3> Título 3</h3>
+    <h4> Título 4</h4>
+    <h5> Título 5</h5>
+    <h6> Título 6</h6>
+
+    <!-- paragrafo -->
+    <p> Aqui é um paragrafo</p>
+
+    <!--  Links -->
+    <a href="https://ava.sesisenai.org.br/my/"> Click aqui</a>
+    <br>
+    <a href="https://moored-sign-707.notion.site/Desenvolvimento-de-Sistemas-23e252bcf6ba805e88ddd166c5c8066c" target="_blank">
+        Click aqui para outra pagina
+    </a>
+    <br>
+    <a href="./Pag2.html" target="_blank">Outra Pagina<a>
+    <br>
+    <!-- Negrigto e italico -->
+    <strong>Negrito</strong>
+    <br>
+    <em>italico</em>
+    <br>
+    <b>Negrito</b>
+    <br>
+    <i>italico</i>
+    
+    <br>
+    <br>
+
+    <!--  Listas -->
+    <h2>Lista não ordenada</h2>
+    <!-- Lista não ordenada -->
+    <ul>
+        <li >Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+    <h4> Lista ordenada</h4>
+    <ol>
+        <li>
+         <a href="https://ava.sesisenai.org.br/my/">Item</a>
+        </li>
+        <li>
+            <a href="https://moored-sign-707.notion.site/Desenvolvimento-de-Sistemas-23e252bcf6ba805e88ddd166c5c8066c" target="_blank">
+                Item
+            </a>
+        
+        </li>
+        <li>Item</li>
+    </ol>
+    <h4>Lista com descrição</h4>
+    <dl>
+        <dt>Titulo</dt>
+        <dd>Descrição 1</dd>
+        <dd>Descrição 2</dd>
+        <dd>Descrição 3</dd>
+    </dl>
+
+    <dl>
+        <dt>Itens para o mercado</dt>
+        <dd>Shampoo</dd>
+        <dd>Arroz</dd>
+    </dl>
+
+    <br>
+
+    <h2>Imagens</h2>
+    <br>
+    <a href="https://ava.sesisenai.org.br/my/">
+    <img src="https://i.pinimg.com/736x/fa/a9/58/faa95847e254f50b0f1554eb065f0f72.jpg"height="100px" width="100px">
+    </a>
+    <!--  Texto alternativo -->
+    <br>
+    <img alt ="um gato com medo" src="https://i.pinimg.com/736x/fa/a9/58/faa95847e254f50b0f1554eb065f0f7.jpg">
+    <!-- Imagem baixada -->
+    <br>
+    <a href="https://moored-sign-707.notion.site/Desenvolvimento-de-Sistemas-23e252bcf6ba805e88ddd166c5c8066c" target="_blank">
+    <img src="./asstes/Gabigol.WEBP" height="100px" width="100px">
+    </a>
+    <br>
+    <!-- Figura com legenda -->
+    <figure>
+        <img src="./asstes/Gabigol.webp" height="100px" width="100px">
+        <figcaption>Isso é o GABIGOL!</figcaption>
+    </figure>
+
+    <br>
+    <h2>Tabelas</h2>
+
+    <table>
+        <!-- Tr - Linha da tabela -->
+        <tr>
+            <!-- TH - titulo da coluna -->
+            <th>Coluna 1</th>
+            <th>Coluna 2</th>
+            <th>Coluna 3</th>
+        </tr>
+        <tr>
+            <!-- Td - Descrição/dados de cada coluna respectivamente -->
+            <td>Celula 1</td>
+            <td>Celula 2</td>
+            <td>Celula 3</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <h2> tags de formulario</h2>
+    <!-- auuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu -->
+    <form>
+        <fieldset>
+        <legend>Flamenguista</legend>
+        <!-- Entrada de dado
+        type = tipo do lado
+        Placeholder = Instrução para entrada dos dados -->
+        
+        <input type ="text" placeholder = "Digite o seu nome" required>
+        <br>
+        <!-- Tipo sengha -->
+        <input type ="password" name = "senha " placeholder = "Digite o sua senha" required>
+        <br>
+        <!-- tipo email -->
+        <input type ="email" name = "email" placeholder = "Digite o seu email" required>    
+        <br>
+        <label>idade: </label>
+        <input type ="number" max ="120" min = "0" name = "idade" placeholder = "Digite o sua idade" required>
+        <br>
+        <label>Text Area</label>
+        <Textarea></Textarea>
+        <br>
+        <label> Input de seleção</label>
+        <select>
+            <option>valor 1</option>
+            <option>valor 2</option>
+            <option>valor 3</option>
+        </select>   
+        
+        <br>
+        <!-- Enviar dados -->
+        <!-- Primeira forma -->
+        <input type="submit">
+        <br>
+        <!-- Segunda forma -->
+        <button type = "submit">Enviar</button>
+        </fieldset>
+    </form>
+</body>
+</html>
