@@ -37,11 +37,80 @@ body {
 }
 
 .imagem-container {
-    text-align: center;  
-    margin-top: 20px;     
+    display: flex;
+    align-items: center; 
+    justify-content: center;   
 }
 
 .imagem {
     max-width: 80%;       
     height: auto;
+}
+
+.imagem-cardapio{
+    max-width: 30%;
+    height: auto;
+    display: block;
+}
+.imagem-cardapio-2{
+    max-width: 60%;
+    height: auto;
+    display: block;
+}
+.imagem-cardapio-3{
+    max-width: 80%;
+    height: auto;
+    display: block;
+}
+.imagem-container-cardapio{
+    display: flex;
+    align-items: flex-start; 
+    justify-content: space-around;   
+}
+.imagem-container-cardapio-2{
+    text-align: center;  
+    margin-top: 100px;     
+}
+.imagem-container-cardapio-3{
+    text-align: end;  
+    margin-top: 100px;     
+}
+.texto{
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 300;
+    text-decoration: underline;
+     
+}
+.titulo-2 {
+    color: yellow;
+    font-size: 50px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 300;
+}
+.titulo-3 {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 300;
+}
+.titulo-4 {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 300;
+    text-decoration: underline;
+}
+.imagem-descricao {
+    text-align: center; 
+    color: white;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    margin-top: 10px;  
+    width: 100%;
 }
