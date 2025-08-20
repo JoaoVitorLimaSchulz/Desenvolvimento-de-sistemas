@@ -10,6 +10,10 @@ body {
     align-items: center;    
     height: 100vh;
     background: black;
+    background-image:url(https://media.istockphoto.com/id/113494458/pt/foto/fogo-isolado-no-fundo-preto.jpg?s=612x612&w=0&k=20&c=y415H7w9huMhi3LOBEUdHkc2rpbNs8_GeX3uD5lX-a8=);
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
 }
 
 .titulo {
@@ -38,42 +42,47 @@ body {
 
 .imagem-container {
     display: flex;
-    align-items: center; 
-    justify-content: center;   
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 .imagem {
-    max-width: 80%;       
+    max-width: 80%;  
     height: auto;
 }
 
-.imagem-cardapio{
-    max-width: 30%;
-    height: auto;
-    display: block;
-}
-.imagem-cardapio-2{
-    max-width: 60%;
-    height: auto;
-    display: block;
-}
-.imagem-cardapio-3{
-    max-width: 80%;
-    height: auto;
-    display: block;
-}
-.imagem-container-cardapio{
+.imagem-container-cardapio {
     display: flex;
-    align-items: flex-start; 
-    justify-content: space-around;   
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 50px;
 }
-.imagem-container-cardapio-2{
-    text-align: center;  
-    margin-top: 100px;     
+
+.imagem-cardapio, .imagem-cardapio-2, .imagem-cardapio-3 {
+    text-align: center;
+    width: 30%;  
 }
-.imagem-container-cardapio-3{
-    text-align: end;  
-    margin-top: 100px;     
+
+.imagem-cardapio-img, .imagem-cardapio-2-img, .imagem-cardapio-3-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; 
+}
+
+.imagem-container-cardapio h3 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.imagem-container-cardapio ul {
+    list-style: none;
+    padding: 0;
+}
+
+.imagem-container-cardapio li {
+    font-size: 16px;
+    margin: 5px 0;
 }
 .texto{
     color: white;
@@ -85,11 +94,13 @@ body {
      
 }
 .titulo-2 {
-    color: yellow;
+    color: red;
     font-size: 50px;
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 300;
+    text-decoration: underline;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000;
 }
 .titulo-3 {
     color: white;
@@ -97,6 +108,7 @@ body {
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 300;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000;
 }
 .titulo-4 {
     color: white;
@@ -105,6 +117,7 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 300;
     text-decoration: underline;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000;
 }
 .imagem-descricao {
     text-align: center; 
@@ -113,4 +126,33 @@ body {
     font-family: 'Arial', sans-serif;
     margin-top: 10px;  
     width: 100%;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000;
+}
+.imagem2 {
+    max-width: 30%;
+    height: auto;
+    display: block;
+}
+.NovoFundo{
+    background: greenyellow;
+    background-image:url(https://www.shutterstock.com/image-vector/drooling-emoticon-600w-97934504.jpg);
+    background-repeat: repeat; 
+    background-position: center;
+    background-size:contain;
+}
+.NovoFundo2{
+    background: greenyellow;
+    background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkCvR-ADpcNXB8Z0ivrDpaonSjHi9PlncDyQ&s);
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-size:contain;
+}
+.titulo-4 {
+    color: yellow;
+    font-size: 300px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 300;
+    text-decoration: underline;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000;
 }
