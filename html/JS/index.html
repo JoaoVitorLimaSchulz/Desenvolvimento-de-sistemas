@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script> 
+        //Não utilizar nesse lugar
+    </script>
+</head>
+<body>
+    <p id= "paragrafo">Scrip que escreve cocô:</p>
+    <p id="id">Seletor de id</p>
+    <p class="classe">Seletor de classe 1 </p>
+    <p class="classe">Seletor de classe 2 </p>
+    <h1 id = "text"> Text</h1>
+    <div id = "div">
+        Texto de exemplo
+    </div>
+    <img id="dromedario" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPUqwQDa-ozzztx-O4Ml9wsZCyfIBi2Thjiw&s" >
+    
+    <button id="fundo">Trocar a cor de fundo</button>
+    <button onClick=" trocar()">Trocar a cor de fundo 2</button>
+    
+    <script>
+        console.log("cocô");
+        console.warn("cocô");
+        console.error("cocô");
+        document.write("Cocô");
+        
+        
+        // Seleção de elementos 
+        // por Id
+        const p = document.getElementById("paragrafo");
+        console.log(p);
+        // por seletor css
+        const id = document.querySelector("#id");
+        const classe = document.querySelector(".classe"); 
+        console.log(id);
+        console.log(classe);
+        const classes = document.querySelectorAll(".classe");
+        console.log(classes);
+        // pega o texto do elemento
+        console.log(id.innerText)
+
+        // Manipulação de elementos
+        let text = document.getElementById("text")
+        console.log(text.textContent)
+        text.textContent = "Flamengo flamidia"
+        
+        // Altera html de dentro do elemento
+        let div = document.getElementById("div")
+        console.log(div.innerHTML)
+        div.innerHTML = "<h3>Manipulação  de html</h3>"
+        console.log(div.innerHTML)
+        
+        // Manipulação de atributos
+        let imgdromedario = document.getElementById("dromedario")
+        console.log(imgdromedario.getAttribute("src"))
+        
+        // altera o atributo de algum elemento
+        //setAttribute("atributo", "novoValor")
+        imgdromedario.setAttribute("src", "https://mega.ibxk.com.br/2015/07/17/17202057668314.jpg")
+        imgdromedario.setAttribute("alt", "imagem de um dromedario ou camelo")
+        
+        // remover atributos 
+        imgdromedario.removeAttribute("alt")
+        
+        // manipuilação do css 
+        imgdromedario.style.borderRadius ="10px"
+        imgdromedario.style.textAlign = "center";
+        imgdromedario.style.border = "5px solid black";
+        imgdromedario.style.width = "500px"
+        // Eventos
+        let fundo = document.getElementById("fundo")
+        let troca = true;
+        fundo.addEventListener("click", () => {
+            if(troca){
+                document.body.style.backgroundColor="purple"
+                troca = false
+            }else{
+                document.body.style.backgroundColor="blue"
+                troca = true
+            }
+        });
+        function trocar(){
+            document.body.style.backgroundColor="red"
+        }
+    </script>
+</body>
+</html>
