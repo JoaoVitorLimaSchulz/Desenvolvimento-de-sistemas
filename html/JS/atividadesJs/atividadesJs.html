@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #quadrado {
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+        margin-bottom: 20px;
+    }
+    </style>
+</head>
+<body>
+    <h1>Atividade 1</h1>
+    <h1 id = titulo> Titulo </h1>
+    <button id="BotTitulo"> Trocar o titulo</button>
+    <p id = papu> Paragrafo</p>
+    <button id="BotParagrafo"> Trocar o paragrafo</button>
+    <h1>Atividade 2</h1>
+    <div id="quadrado"></div>
+    <button id="botaoQUaQUa">Alterar Cor quadradão</button>
+    <h1>Atividade 3</h1></hq>
+    <p id="texto">Aperta nimim para sumir ou aparecer.</p>
+    <button id="botaoInvi">Alternar Visibilidade</button>
+    <h1>Atividade 4</h1>
+    <p id="contador">0</p>
+    <button id="Menos">-</button>
+    <button id="Mais">+</button>
+    <h1>Atividade 5</h1>
+    <img id="imagem" src="https://jpimg.com.br/uploads/2023/04/veja-como-cuidar-de-um-porquinho-da-india.jpg" alt="Imagem Inicial" width="300"> 
+    <br>
+    <button id="botao">Próxima</button> 
+    <script>
+        let BotTitulo = document.getElementById("BotTitulo")
+        let titulo = document.getElementById("titulo")
+        let paragrafo = document.getElementById("papu")
+        let BotParagrafo = document.getElementById("BotParagrafo")
+        let TrocarTitulo = true
+        let TrocarParagrafo = true
+        let quadrado = document.getElementById("quadrado")
+        let botaoQUaqua = document.getElementById("botaoQUaQUa")
+        let corAtual = "blue"
+        let texto = document.getElementById("texto")
+        let botaoInvi = document.getElementById("botaoInvi")
+        let contador = document.getElementById("contador")
+        let Mais = document.getElementById("Mais")
+        let Menos = document.getElementById("Menos")
+        let numero = 0
+        const imagens = [
+            "https://jpimg.com.br/uploads/2023/04/veja-como-cuidar-de-um-porquinho-da-india.jpg", // Caminho da primeira imagem
+            "https://www.petz.com.br/blog/wp-content/uploads/2022/05/porquinho-da-india-pode-comer-couve-final.jpg", // Caminho da segunda imagem
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgAbYSpW8L3B6IonX3sxtu1Aaz3Ud6LqO9IQ&s"  // Caminho da terceira imagem
+        ]
+        let indiceAtual = 0
+        let imagem = document.getElementById("imagem")
+        let botao = document.getElementById("botao")
+        BotTitulo.addEventListener("click", () => {
+            if(TrocarTitulo){
+                titulo.innerText = "Titulo2"
+                TrocarTitulo = false
+            }else{
+                titulo.innerText = "Titulo"
+                TrocarTitulo = true
+            }
+        });
+        BotParagrafo.addEventListener("click", () => {
+            if(TrocarParagrafo){
+                paragrafo.innerText = "papu"
+                TrocarParagrafo = false
+            }else{
+                paragrafo.innerText = "Paragrafo"
+                TrocarParagrafo = true
+            }
+        });
+        botaoQUaqua.addEventListener("click", () => {
+            if (corAtual === "blue") {
+                quadrado.style.backgroundColor = "red"
+                corAtual = "red"
+            } else {
+                quadrado.style.backgroundColor = "blue"
+                corAtual = "blue"
+            }
+        });
+        botaoInvi.addEventListener("click", () => {
+            if (texto.style.display === "none") {
+                texto.style.display = "block"
+            } else {
+                texto.style.display = "none"
+            }
+        });
+        Mais.addEventListener("click", () => {
+            numero++
+            contador.innerText = numero; 
+        });
+        Menos.addEventListener("click", () => {
+            numero--
+            contador.innerText = numero
+        });
+        botao.addEventListener("click", () => {
+            indiceAtual++
+            if (indiceAtual >= imagens.length) {
+                indiceAtual = 0;
+            }
+            imagem.src = imagens[indiceAtual];
+        })
+    </script>
+</body>
+</html>
