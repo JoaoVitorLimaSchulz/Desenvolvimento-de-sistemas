@@ -6,33 +6,150 @@
     <title>Document</title>
     <style>
         #quadrado {
-        width: 200px;
-        height: 200px;
-        background-color: blue;
-        margin-bottom: 20px;
-    }
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            margin-bottom: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid white;
+            min-height: 30px;
+            background-color: white;
+        }
+        img {
+            width: 300px;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid black;
+            display: inline-block;
+            min-width: 100px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        
+        .vermelho { background-color: red; }
+        .verde { background-color: green; }
+        .azul { background-color: blue; }
+        .amarelo { background-color: yellow; }
+        .rosa { background-color: pink; }
+        .laranja { background-color: orange; }
+        .branco { background-color: white; }
+        
+        #texto {
+            font-size: 18px;
+            color: black;
+            transition: all 0.3s ease;
+        }
+        .estiloAlternativo {
+            color: red;
+            font-weight: bold;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Atividade 1</h1>
-    <h1 id = titulo> Titulo </h1>
-    <button id="BotTitulo"> Trocar o titulo</button>
-    <p id = papu> Paragrafo</p>
-    <button id="BotParagrafo"> Trocar o paragrafo</button>
+    <h1 id="titulo">Titulo</h1>
+    <button id="BotTitulo">Trocar o titulo</button>
+    <p id="papu">Paragrafo</p>
+    <button id="BotParagrafo">Trocar o paragrafo</button>
+
     <h1>Atividade 2</h1>
     <div id="quadrado"></div>
     <button id="botaoQUaQUa">Alterar Cor quadradão</button>
-    <h1>Atividade 3</h1></hq>
+
+    <h1>Atividade 3</h1>
     <p id="texto">Aperta nimim para sumir ou aparecer.</p>
     <button id="botaoInvi">Alternar Visibilidade</button>
+
     <h1>Atividade 4</h1>
     <p id="contador">0</p>
     <button id="Menos">-</button>
     <button id="Mais">+</button>
+
     <h1>Atividade 5</h1>
-    <img id="imagem" src="https://jpimg.com.br/uploads/2023/04/veja-como-cuidar-de-um-porquinho-da-india.jpg" alt="Imagem Inicial" width="300"> 
+    <img id="imagem" src="https://jpimg.com.br/uploads/2023/04/veja-como-cuidar-de-um-porquinho-da-india.jpg" alt="Imagem Inicial" width="300">
     <br>
-    <button id="botao">Próxima</button> 
+    <button id="botao">Próxima</button>
+
+    <h1>Atividade 6</h1>
+    <label for="inputText">Digite alguma pouca vergonha:</label>
+    <input type="text" id="inputText" placeholder="Digite suas insanidades aqui...">
+    <div id="output"></div>
+
+    <h2>atividade 7 Redimensionar o alvin horroroso</h2>
+    <img id="image" src="https://m.media-amazon.com/images/S/pv-target-images/9ba741391f5c1f372cc954c5afd4ed8df75d3c794841bc0101ce455913cf6170._SX1080_FMjpg_.jpg">
+    <div>
+        <button id="butaoaumentar">Aumentar</button>
+        <button id="butaodiminui">Diminuir</button>
+    </div>
+    <h1>atividade 8</h1>
+    <input type="number" id="num1" placeholder="Digite um número" required>
+    <input type="number" id="num2" placeholder="Digite outro número" required>
+    <button id="Somabutao">Somar</button>
+    <div id="resultado"></div>
+    <h1>atividade 9</h1>
+    <button class="colorBtn vermelho">Botão Vermelho</button>
+    <button class="colorBtn verde">Botão Verde</button>
+    <button class="colorBtn azul">Botão Azul</button>
+    <button class="colorBtn amarelo">Botão Amarelo</button>
+    <button class="colorBtn rosa">Botão Rosa</button>
+    <button class="colorBtn laranja">Botão Laranja</button>
+    <button class="colorBtn branco">Botão branco</button>
+    <h1>atividade 10</h1>
+    <p id="textoinsano">Este é um texto que pode ficar insano</p>
+    <button id="alternarBtn">Alternar para insano</button>
+
     <script>
         let BotTitulo = document.getElementById("BotTitulo")
         let titulo = document.getElementById("titulo")
@@ -49,63 +166,89 @@
         let Mais = document.getElementById("Mais")
         let Menos = document.getElementById("Menos")
         let numero = 0
+        const image = document.getElementById('image')
+        const butaoaumentar = document.getElementById('butaoaumentar')
+        const butaodiminuir = document.getElementById('butaodiminui')
         const imagens = [
-            "https://jpimg.com.br/uploads/2023/04/veja-como-cuidar-de-um-porquinho-da-india.jpg", // Caminho da primeira imagem
-            "https://www.petz.com.br/blog/wp-content/uploads/2022/05/porquinho-da-india-pode-comer-couve-final.jpg", // Caminho da segunda imagem
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgAbYSpW8L3B6IonX3sxtu1Aaz3Ud6LqO9IQ&s"  // Caminho da terceira imagem
+            "https://jpimg.com.br/uploads/2023/04/veja-como-cuidar-de-um-porquinho-da-india.jpg", 
+            "https://www.petz.com.br/blog/wp-content/uploads/2022/05/porquinho-da-india-pode-comer-couve-final.jpg", 
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgAbYSpW8L3B6IonX3sxtu1Aaz3Ud6LqO9IQ&s"
         ]
         let indiceAtual = 0
         let imagem = document.getElementById("imagem")
         let botao = document.getElementById("botao")
+        const inputText = document.getElementById('inputText')
+        const output = document.getElementById('output')
+        const num1 = document.getElementById('num1')
+        const num2 = document.getElementById('num2')
+        const Somabutao = document.getElementById('Somabutao')
+        const resultado = document.getElementById('resultado')
+        const textoinsano = document.getElementById('textoinsano')
+        const alternarBtn = document.getElementById('alternarBtn')
+
         BotTitulo.addEventListener("click", () => {
-            if(TrocarTitulo){
-                titulo.innerText = "Titulo2"
-                TrocarTitulo = false
-            }else{
-                titulo.innerText = "Titulo"
-                TrocarTitulo = true
-            }
-        });
-        BotParagrafo.addEventListener("click", () => {
-            if(TrocarParagrafo){
-                paragrafo.innerText = "papu"
-                TrocarParagrafo = false
-            }else{
-                paragrafo.innerText = "Paragrafo"
-                TrocarParagrafo = true
-            }
-        });
-        botaoQUaqua.addEventListener("click", () => {
-            if (corAtual === "blue") {
-                quadrado.style.backgroundColor = "red"
-                corAtual = "red"
-            } else {
-                quadrado.style.backgroundColor = "blue"
-                corAtual = "blue"
-            }
-        });
-        botaoInvi.addEventListener("click", () => {
-            if (texto.style.display === "none") {
-                texto.style.display = "block"
-            } else {
-                texto.style.display = "none"
-            }
-        });
-        Mais.addEventListener("click", () => {
-            numero++
-            contador.innerText = numero; 
-        });
-        Menos.addEventListener("click", () => {
-            numero--
-            contador.innerText = numero
-        });
-        botao.addEventListener("click", () => {
-            indiceAtual++
-            if (indiceAtual >= imagens.length) {
-                indiceAtual = 0;
-            }
-            imagem.src = imagens[indiceAtual];
+            titulo.innerText = TrocarTitulo ? "Titulo2" : "Titulo"
+            TrocarTitulo = !TrocarTitulo
         })
+        
+        BotParagrafo.addEventListener("click", () => {
+            paragrafo.innerText = TrocarParagrafo ? "papu" : "Paragrafo"
+            TrocarParagrafo = !TrocarParagrafo
+        })
+        
+        botaoQUaqua.addEventListener("click", () => {
+            quadrado.style.backgroundColor = corAtual === "blue" ? "red" : "blue"
+            corAtual = corAtual === "blue" ? "red" : "blue"
+        })
+        
+        botaoInvi.addEventListener("click", () => {
+            texto.style.display = texto.style.display === "none" ? "block" : "none"
+        })
+        
+        Mais.addEventListener("click", () => {
+            contador.innerText = ++numero
+        })
+        
+        Menos.addEventListener("click", () => {
+            contador.innerText = --numero
+        })
+        
+        botao.addEventListener("click", () => {
+            indiceAtual = (indiceAtual + 1) % imagens.length
+            imagem.src = imagens[indiceAtual]
+        })
+        
+        inputText.addEventListener('input', () => {
+            output.textContent = inputText.value
+        })
+        
+        butaoaumentar.addEventListener('click', () => {
+            image.style.width = "500px"
+        })
+        
+        butaodiminuir.addEventListener('click', () => {
+            image.style.width ="200px"
+        })
+        Somabutao.addEventListener('click', function() {
+            const valor1 = parseFloat(num1.value);
+            const valor2 = parseFloat(num2.value);
+            if (isNaN(valor1) || isNaN(valor2)) {
+                resultado.textContent = "Por favor, insira números válidos.";
+            } else {
+                const soma = valor1 + valor2;
+                resultado.textContent = `Resultado: ${soma}`
+            }
+        });
+        const buttons = document.querySelectorAll('.colorBtn')
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                document.body.style.backgroundColor = getComputedStyle(button).backgroundColor
+            })
+        })
+        alternarBtn.addEventListener('click', () => {
+            textoinsano.classList.toggle('estiloAlternativo')
+        });
     </script>
 </body>
 </html>
