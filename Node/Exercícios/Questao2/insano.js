@@ -14,24 +14,23 @@ app.get('/produtos', (req, res) => {
     res.json(produtos);
     });
 //operação get por estoque
-app.get('/produtos/em-estoque', (req, res) => {
-    //const id = parseInt(req.params.id);
-    ///const tarefas = tarefas.find(u => u.id === id);
-    if (produtos/emEstoque == true) {
-        res.json(produtos/emEstoque);
+app.get('/produtos/:emEstoque', (req, res) => {
+    const estoque = parseFloat(req.params.emEstoque);
+    const produto = produto.find(p => p.estoque === estoque);
+    if (produto == true) {
+        res.json(produto);
     } else {
         res.status(404).send('não há produtos em estoque.');
     }
-    });
+});
   //get por nome
-    app.get('/produtos/pesquisar', (req, res) => {
-    //const id = parseInt(req.params.id);
-    ///const tarefas = tarefas.find(u => u.id === id);
-    if (produtos/emEstoque == true) {
-        res.json(produtos/emEstoque);
-    } else {
-        res.status(404).send('não há produtos em estoque.');
+    app.get('/produtos/:nome', (req, res) => {
+    const nome = parseFloat(req.params.nome);
+    const produto = produtos.find(p => p.nome === nome);
+    if (!produto) {
+        res.status(404).send('não há produtos em estoque.');  
     }
+    res.json(produto);
     });
 //operação criar
     app.post('/tarefas', (req, res) => {
@@ -41,7 +40,7 @@ app.get('/produtos/em-estoque', (req, res) => {
     res.status(201).json(novaTarefa);
     });
 //operção atualizar
-app.put('/tarefas/:id', (req, res) => {
+app.put('/produtos/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const novosDados = req.body;
     const index = tarefas.findIndex(u => u.id === id);
