@@ -28,43 +28,34 @@ app.get('/produtos/:emEstoque', (req, res) => {
     const nome = parseFloat(req.params.nome);
     const produto = produtos.find(p => p.nome === nome);
     if (!produto) {
-        res.status(404).send('não há produtos em estoque.');  
+        res.status(404).send('não há produtos com esse nome.');  
     }
     res.json(produto);
     });
-//operação criar
-    app.post('/tarefas', (req, res) => {
-    const novaTarefa = req.body;
-    novaTarefa.id = tarefas.length + 1;
-    tarefas.push(novaTarefa);
-    res.status(201).json(novaTarefa);
-    });
+//operação adicionar/validar
+app.post('/produtos', (req, res) => {
+    //pega o atributo do objeto recebido
+    //coloca em uma variavel de mesmo nome
+    let {nome, preco, emEstoque} = req.body;
+    let produtos = {id: nextId, nome: nome, preco: preco, emEstoque: emEstoque}
+    nextId++;
+    
+    produtos.push(produtos);
+    res.status(201).send(produtos);
+});
 //operção atualizar
-app.put('/produtos/:id', (req, res) => {
+app.patch('/produtos/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const novosDados = req.body;
-    const index = tarefas.findIndex(u => u.id === id);
+    const index = produtos.findIndex(u => u.id === id);
     
     if (index !== -1) {
-        tarefas[index] = { ...tarefas[index], ...novosDados };
+        produtos[index] = { ...produtos[index], ...novosDados };
         res.json(tarefas[index]);
     } else {
-        res.status(404).send('Tarefa não encontrada.');
+        res.status(404).send('produto não encontrado.');
     }
     });
-  //operação delete
-    app.delete('/tarefas/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = tarefas.findIndex(u => u.id === id);
-    
-    if (index !== -1) {
-        tarefas.splice(index, 1);
-      res.status(204).send(); // 204 No Content
-    } else {
-        res.status(404).send('Tarefa não encontrada.');
-    }
-    });
-
     app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
