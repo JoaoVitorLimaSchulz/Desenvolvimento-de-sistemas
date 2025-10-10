@@ -5,57 +5,59 @@ const port = 3000;
 app.use(express.json());
 
 let produtos = [
-    { id: 1, nome: 'Bufalo',preco:1.50,emEstoque: false },
-    { id: 2, nome: 'rato',preco:5.50,emEstoque: true },
-    { id: 3, nome: 'ararinha-azul',preco:0.50,emEstoque: false },
-    ];
+    { id: 1, nome: 'Mouse Gamer', preco: 150, emEstoque: true, categoria: 'Periféricos' },
+    { id: 2, nome: 'Teclado Mecânico', preco: 300, emEstoque: false, categoria: 'Periféricos' },
+    { id: 3, nome: 'Monitor 24"', preco: 900, emEstoque: true, categoria: 'Monitores' },
+];
 
-app.get('/produtos', (req, res) => {
-    res.json(produtos);
-    });
-//operação get por estoque
-app.get('/produtos/:emEstoque', (req, res) => {
-    const estoque = parseFloat(req.params.emEstoque);
-    const produto = produto.find(p => p.estoque === estoque);
-    if (produto == true) {
-        res.json(produto);
-    } else {
-        res.status(404).send('não há produtos em estoque.');
-    }
+
+app.get('/produtos/em-estoque', (req, res) => {
+    const emEstoque = produtos.filter(p => p.emEstoque === true);
+    res.json(emEstoque);
 });
-  //get por nome
-    app.get('/produtos/:nome', (req, res) => {
-    const nome = parseFloat(req.params.nome);
-    const produto = produtos.find(p => p.nome === nome);
-    if (!produto) {
-        res.status(404).send('não há produtos com esse nome.');  
-    }
-    res.json(produto);
-    });
-//operação adicionar/validar
-app.post('/produtos', (req, res) => {
-    //pega o atributo do objeto recebido
-    //coloca em uma variavel de mesmo nome
-    let {nome, preco, emEstoque} = req.body;
-    let produtos = {id: nextId, nome: nome, preco: preco, emEstoque: emEstoque}
-    nextId++;
-    
-    produtos.push(produtos);
-    res.status(201).send(produtos);
+
+
+app.get('/produtos/pesquisar', (req, res) => {
+    const nomeBusca = req.query.nome;
+    if (!nomeBusca) return res.status(400).json({ erro: 'Parâmetro "nome" é obrigatório.' });
+
+    const resultado = produtos.filter(p =>
+    p.nome.toLowerCase().includes(nomeBusca.toLowerCase())
+    );
+
+    res.json(resultado);
 });
-//operção atualizar
 app.patch('/produtos/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const novosDados = req.body;
-    const index = produtos.findIndex(u => u.id === id);
-    
-    if (index !== -1) {
-        produtos[index] = { ...produtos[index], ...novosDados };
-        res.json(tarefas[index]);
-    } else {
-        res.status(404).send('produto não encontrado.');
-    }
+    const { preco } = req.body;
+
+    const produto = produtos.find(p => p.id === id);
+    if (!produto) return res.status(404).json({ erro: 'Produto não encontrado.' });
+
+    if (preco === undefined || typeof preco !== 'number')
+    return res.status(400).json({ erro: 'O campo "preco" é obrigatório e deve ser numérico.' });
+
+    produto.preco = preco;
+    res.json(produto);
+});
+
+app.put('/produtos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const novoProduto = req.body;
+
+    if (!novoProduto.categoria) {
+    return res.status(400).json({
+        erro: 'A categoria é obrigatória para a substituição do produto.',
     });
-    app.listen(port, () => {
+    }
+
+    const index = produtos.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).json({ erro: 'Produto não encontrado.' });
+
+    novoProduto.id = id;
+    produtos[index] = novoProduto;
+    res.json(novoProduto);
+});
+app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
