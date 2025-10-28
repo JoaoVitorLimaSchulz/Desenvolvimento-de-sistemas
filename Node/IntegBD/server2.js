@@ -74,7 +74,7 @@ app.put('/usuarios/:id', async (req, res) => {
 
     try {
       // Primeiro, verifique se a tarefa existe
-      const [existingRows] = await db.query('SELECT * FROM usuarios WHERE id = ?', [id]);
+      const[existingRows] = await db.query('SELECT * FROM usuarios WHERE id = ?', [id]);
     if (existingRows.length === 0) {
         return res.status(404).send('usuario não encontrada para atualização.');
     } 
