@@ -137,3 +137,39 @@ app.delete("/tarefas/:id", async (req, res) => {
     res.status(500).send("Erro interno do servidor ao excluir tarefa.");
   }
 });
+
+app.get("/tarefas/status", async (req, res) =>{
+  try{
+    const[rows] = await db.query(`
+      select 
+        count(case when concluida =1 then 1 end) as concluidas,
+        count(case when concluida =0 then 1 end) as pendentes
+      from tarefas
+    `)
+    const{ concluidas, pendentes} = rows[0];
+    return res.send({concluidas, pendentes});
+  }catch(err) {
+    console.error("erro ao buscar status das tarefas", err.mensage);
+    return res.status(500).send("erro interno do servidor")
+  }
+});
+
+app.get("/tarefas/pesquisar", async (req,res) =>{
+  const termo = req.query.q;
+
+  if(!termo){
+    return res
+      .status(400)
+      .send("è necessario informar o parametro 'q' para busca");
+  }
+  try{
+    const[rows] = await db.query(
+      "SELECT* FROM tarefas WHERE titulo LIKE ?",
+      [`%${termo}%`]
+    )
+    return res.send(rows);
+  } catch (err){
+    console.error(" erro ao pesquisar tarefas:", err.mensage);
+    return res.status(500).send("erro interno do servidor")
+  }
+})
