@@ -173,3 +173,103 @@ app.get("/tarefas/pesquisar", async (req,res) =>{
     return res.status(500).send("erro interno do servidor")
   }
 })
+app.get("/categorias/:id/tarefas", async (req, res) => {
+  const { id } = req.params;
+  const [rows] = await db.query(
+    `SELECT t.* FROM tarefas t JOIN tarefa_categoria tc ON t.id = tc.tarefa_id WHERE tc.categoria_id = ?`,
+    [id]
+  );
+  res.json(rows);
+});
+app.get("/usuarios", async (req, res) => {
+  const [rows] = await db.query("SELECT * FROM usuarios");
+  res.json(rows);
+});
+
+app.post("/usuarios", async (req, res) => {
+  const { nome, email } = req.body;
+  const [result] = await db.query("INSERT INTO usuarios (nome, email) VALUES (?, ?)", [nome, email]);
+  res.status(201).json({ id: result.insertId, nome, email });
+});
+
+app.put("/usuarios/:id", async (req, res) => {
+  const { id } = req.params;
+  const { nome, email } = req.body;
+  await db.query("UPDATE usuarios SET nome=?, email=? WHERE idUsuario=?", [nome, email, id]);
+  res.send("Usuário atualizado com sucesso!");
+});
+
+app.delete("/usuarios/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.query("DELETE FROM usuarios WHERE idUsuario=?", [id]);
+  res.sendStatus(204);
+});
+
+app.get("/dados_usuarios", async (req, res) => {
+  const [rows] = await db.query("SELECT * FROM dados_usuario");
+  res.json(rows);
+});
+
+app.post("/dados_usuarios", async (req, res) => {
+  const { biografia, url_foto, data_nascimento, telefone, id_usuarios } = req.body;
+  const [result] = await db.query(
+    "INSERT INTO dados_usuario (biografia, url_foto, data_nascimento, telefone, id_usuarios) VALUES (?, ?, ?, ?, ?)",
+    [biografia, url_foto, data_nascimento, telefone, id_usuarios]
+  );
+  res.status(201).json({ id: result.insertId, biografia, url_foto, data_nascimento, telefone, id_usuarios });
+});
+
+app.put("/dados_usuarios/:id", async (req, res) => {
+  const { id } = req.params;
+  const { biografia, url_foto, data_nascimento, telefone } = req.body;
+  await db.query(
+    "UPDATE dados_usuario SET biografia=?, url_foto=?, data_nascimento=?, telefone=? WHERE id=?",
+    [biografia, url_foto, data_nascimento, telefone, id]
+  );
+  res.send("Dados do usuário atualizados!");
+});
+
+app.delete("/dados_usuarios/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.query("DELETE FROM dados_usuario WHERE id=?", [id]);
+  res.sendStatus(204);
+});
+
+app.get("/categorias", async (req, res) => {
+  const [rows] = await db.query("SELECT * FROM categorias");
+  res.json(rows);
+});
+
+app.post("/categorias", async (req, res) => {
+  const { nome } = req.body;
+  const [result] = await db.query("INSERT INTO categorias (nome) VALUES (?)", [nome]);
+  res.status(201).json({ id: result.insertId, nome });
+});
+
+app.put("/categorias/:id", async (req, res) => {
+  const { id } = req.params;
+  const { nome } = req.body;
+  await db.query("UPDATE categorias SET nome=? WHERE id=?", [nome, id]);
+  res.send("Categoria atualizada!");
+});
+
+app.delete("/categorias/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.query("DELETE FROM categorias WHERE id=?", [id]);
+  res.sendStatus(204);
+});
+
+
+app.get("/tarefas/:id/categorias", async (req, res) => {
+  const { id } = req.params;
+  const [rows] = await db.query(
+    `SELECT c.* FROM categorias c JOIN tarefa_categoria tc ON c.id = tc.categoria_id WHERE tc.tarefa_id = ?`,
+    [id]
+  );
+  res.json(rows);
+});
+
+
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
+});
