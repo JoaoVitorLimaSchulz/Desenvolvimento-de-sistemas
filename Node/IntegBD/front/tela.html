@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="tela.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Tarefas</h1>
+
+    <!-- Área de criação -->
+    <div class="task-input">
+      <input type="text" id="new-task" placeholder="Digite uma nova tarefa...">
+      <button id="add-task">Adicionar</button>
+    </div>
+
+    <!-- Área de filtros e pesquisa -->
+    <div class="task-controls">
+      <select id="filter">
+        <option value="todas">Todas</option>
+        <option value="pendentes">Pendentes</option>
+        <option value="concluidas">Concluídas</option>
+      </select>
+      <input type="text" id="search" placeholder="Pesquisar tarefa...">
+    </div>
+
+    <!-- Lista de tarefas -->
+    <ul id="task-list"></ul>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById('new-task');
+    const addTaskBtn = document.getElementById('add-task');
+    const taskList = document.getElementById('task-list');
+    const filterSelect = document.getElementById('filter');
+    const searchInput = document.getElementById('search');
+
+    let tasks = [];
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      const filter = filterSelect.value;
+      const search = searchInput.value.toLowerCase();
+
+      tasks
+        .filter(t => {
+          if (filter === 'concluidas') return t.done;
+          if (filter === 'pendentes') return !t.done;
+          return true;
+        })
+        .filter(t => t.text.toLowerCase().includes(search))
+        .forEach((t, i) => {
+          const li = document.createElement('li');
+          li.className = t.done ? 'done' : '';
+
+          const span = document.createElement('span');
+          span.textContent = t.text;
+          span.contentEditable = false;
+
+          const buttons = document.createElement('div');
+          buttons.className = 'actions';
+
+          const editBtn = document.createElement('button');
+          editBtn.textContent = '✏️';
+          editBtn.onclick = () => editTask(i, span);
+
+          const doneBtn = document.createElement('button');
+          doneBtn.textContent = '✅';
+          doneBtn.onclick = () => toggleDone(i);
+
+          const delBtn = document.createElement('button');
+          delBtn.textContent = '🗑️';
+          delBtn.onclick = () => deleteTask(i);
+
+          buttons.append(editBtn, doneBtn, delBtn);
+          li.append(span, buttons);
+          taskList.appendChild(li);
+        });
+    }
+
+    function addTask() {
+      const text = taskInput.value.trim();
+      if (text === '') return alert('Digite uma tarefa!');
+      tasks.push({ text, done: false });
+      taskInput.value = '';
+      renderTasks();
+    }
+
+    function toggleDone(index) {
+      tasks[index].done = !tasks[index].done;
+      renderTasks();
+    }
+
+    function deleteTask(index) {
+      if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+        tasks.splice(index, 1);
+        renderTasks();
+      }
+    }
+
+    function editTask(index, span) {
+      if (!span.isContentEditable) {
+        span.contentEditable = true;
+        span.focus();
+      } else {
+        span.contentEditable = false;
+        tasks[index].text = span.textContent.trim();
+      }
+    }
+
+    addTaskBtn.onclick = addTask;
+    filterSelect.onchange = renderTasks;
+    searchInput.oninput = renderTasks;
+  </script>
+</body>
+</html>
