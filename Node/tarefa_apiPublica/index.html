@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lista de Posts - Demo</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="container">
+<h1>Posts (Demo)</h1>
+
+
+<section class="controls">
+<input id="search" placeholder="Buscar por título ou texto..." />
+<select id="userFilter">
+<option value="">Todos os usuários</option>
+</select>
+<button id="loadBtn">Carregar</button>
+</section>
+
+
+<section id="stats" class="stats"></section>
+
+
+<section id="postsList" class="posts"></section>
+
+
+<nav class="pagination">
+<button id="prev">Anterior</button>
+<span id="pageInfo">Página 1</span>
+<button id="next">Próxima</button>
+</nav>
+</main>
+
+<div id="formularioPost" style="margin-bottom: 20px;">
+    <h3>Criar novo post</h3>
+    <input type="text" id="tituloPost" placeholder="Título do post">
+    <textarea id="conteudoPost" placeholder="Conteúdo..." rows="4"></textarea>
+    <button onclick="enviarPost()">Publicar</button>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
