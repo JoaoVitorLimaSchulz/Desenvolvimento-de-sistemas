@@ -8,27 +8,23 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Base da API pública
+
 const PUBLIC_API_BASE = 'https://jsonplaceholder.typicode.com';
 
-// 🟢 Lista local de posts criados pelo usuário
+
 let localPosts = [];
 
-// ----------------------
-// GET /api/posts
-// ----------------------
 app.get('/api/posts', async (req, res) => {
   try {
     const { userId, q, _page = 1, _limit = 10 } = req.query;
 
-    // Busca os posts da API pública
     const response = await axios.get(`${PUBLIC_API_BASE}/posts`);
     let posts = response.data;
 
-    // Junta com os posts locais
+ 
     posts = [...localPosts, ...posts];
 
-    // Filtros
+ 
     if (userId) posts = posts.filter(p => String(p.userId) === String(userId));
     if (q) {
       const term = q.toLowerCase();
@@ -37,7 +33,7 @@ app.get('/api/posts', async (req, res) => {
       );
     }
 
-    // Paginação
+   
     const page = Math.max(1, parseInt(_page, 10) || 1);
     const limit = Math.max(1, Math.min(100, parseInt(_limit, 10) || 10));
     const start = (page - 1) * limit;
@@ -51,17 +47,14 @@ app.get('/api/posts', async (req, res) => {
   }
 });
 
-// ----------------------
-// GET /api/posts/:id
-// ----------------------
+
 app.get('/api/posts/:id', async (req, res) => {
   const { id } = req.params;
 
-  // Primeiro tenta achar entre os locais
   const local = localPosts.find(p => String(p.id) === String(id));
   if (local) return res.json(local);
 
-  // Senão, busca na API pública
+
   try {
     const response = await axios.get(`${PUBLIC_API_BASE}/posts/${id}`);
     res.json(response.data);
@@ -72,9 +65,6 @@ app.get('/api/posts/:id', async (req, res) => {
   }
 });
 
-// ----------------------
-// POST /api/posts
-// ----------------------
 app.post('/api/posts', async (req, res) => {
   try {
     const { title, body, userId } = req.body;
@@ -93,9 +83,6 @@ app.post('/api/posts', async (req, res) => {
   }
 });
 
-// ----------------------
-// Estatísticas simples
-// ----------------------
 app.get('/api/stats/posts-by-user', async (req, res) => {
   try {
     const response = await axios.get(`${PUBLIC_API_BASE}/posts`);
