@@ -40,11 +40,10 @@ async function fetchAndRender() {
   }
 
   $pageInfo.textContent = `Página ${json.page} — ${json.total} resultados`;
-  updateStats(); // Atualiza estatísticas simples
+  updateStats();
 }
 
 async function populateUserFilter() {
-  // Buscar estatísticas de posts por usuário
   const res = await fetch(`${API_BASE}/stats/posts-by-user`);
   const counts = await res.json();
   const keys = Object.keys(counts).sort((a, b) => a - b);
@@ -91,31 +90,52 @@ function escapeHtml(str) {
     .replace(/\"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+
 async function criarPost(titulo, conteudo) {
-    const resp = await fetch('/api/posts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: titulo,
-        body: conteudo,
-        userId: 1 // pode ser fixo ou dinâmico
-      })
-    });
-  
-    const post = await resp.json();
-    console.log('Post criado:', post);
+  const resp = await fetch(`${API_BASE}/posts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: titulo,
+      body: conteudo,
+      userId: 1
+    })
+  });
+
+  const post = await resp.json();
+
+  if (resp.ok) {
     alert(`Post criado com sucesso!\n\nTítulo: ${post.title}`);
+
+    const novoPostDiv = document.createElement('div');
+    novoPostDiv.className = 'post';
+    novoPostDiv.innerHTML = `
+      <h3>${escapeHtml(post.title)}</h3>
+      <p>${escapeHtml(post.body)}</p>
+      <small>userId: ${post.userId} — id: ${post.id || 'novo'}</small>
+    `;
+    $posts.prepend(novoPostDiv);
+
+    document.getElementById('tituloPost').value = '';
+    document.getElementById('conteudoPost').value = '';
+  } else {
+    alert('Erro ao criar o post!');
   }
-  function enviarPost() {
-    const titulo = document.getElementById('tituloPost').value;
-    const conteudo = document.getElementById('conteudoPost').value;
-  
-    if (!titulo || !conteudo) {
-      alert('Preencha o título e o conteúdo antes de publicar.');
-      return;
-    }
-  
-    criarPost(titulo, conteudo);
+}
+
+
+function enviarPost() {
+  const titulo = document.getElementById('tituloPost').value;
+  const conteudo = document.getElementById('conteudoPost').value;
+
+  if (!titulo || !conteudo) {
+    alert('Preencha o título e o conteúdo antes de publicar.');
+    return;
   }
-// Inicializa filtros e carrega dados
+
+  criarPost(titulo, conteudo);
+}
+
+
 populateUserFilter().then(() => fetchAndRender());

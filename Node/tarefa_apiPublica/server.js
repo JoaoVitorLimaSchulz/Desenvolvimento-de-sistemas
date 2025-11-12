@@ -11,21 +11,25 @@ app.use(express.json());
 // Base da API pública
 const PUBLIC_API_BASE = 'https://jsonplaceholder.typicode.com';
 
-// Endpoint principal: listar posts com filtragem, busca e paginação
+// 🟢 Lista local de posts criados pelo usuário
+let localPosts = [];
+
+// ----------------------
+// GET /api/posts
+// ----------------------
 app.get('/api/posts', async (req, res) => {
   try {
     const { userId, q, _page = 1, _limit = 10 } = req.query;
 
-    // Buscar todos os posts
+    // Busca os posts da API pública
     const response = await axios.get(`${PUBLIC_API_BASE}/posts`);
     let posts = response.data;
 
-    // Filtrar por userId (se informado)
-    if (userId) {
-      posts = posts.filter(p => String(p.userId) === String(userId));
-    }
+    // Junta com os posts locais
+    posts = [...localPosts, ...posts];
 
-    // Filtro de busca no título e corpo
+    // Filtros
+    if (userId) posts = posts.filter(p => String(p.userId) === String(userId));
     if (q) {
       const term = q.toLowerCase();
       posts = posts.filter(p =>
@@ -40,60 +44,74 @@ app.get('/api/posts', async (req, res) => {
     const end = start + limit;
     const paged = posts.slice(start, end);
 
-    res.set('X-Total-Count', String(posts.length));
-    res.json({
-      total: posts.length,
-      page,
-      limit,
-      data: paged
-    });
+    res.json({ total: posts.length, page, limit, data: paged });
   } catch (err) {
     console.error(err.message || err);
     res.status(500).json({ error: 'Erro ao buscar posts da API pública' });
   }
 });
 
-// Endpoint: buscar post específico por ID
+// ----------------------
+// GET /api/posts/:id
+// ----------------------
 app.get('/api/posts/:id', async (req, res) => {
+  const { id } = req.params;
+
+  // Primeiro tenta achar entre os locais
+  const local = localPosts.find(p => String(p.id) === String(id));
+  if (local) return res.json(local);
+
+  // Senão, busca na API pública
   try {
-    const { id } = req.params;
     const response = await axios.get(`${PUBLIC_API_BASE}/posts/${id}`);
     res.json(response.data);
   } catch (err) {
-    if (err.response && err.response.status === 404) {
+    if (err.response && err.response.status === 404)
       return res.status(404).json({ error: 'Post não encontrado' });
-    }
-    console.error(err.message || err);
     res.status(500).json({ error: 'Erro ao buscar post' });
   }
 });
 
-// Endpoint extra: estatísticas de posts por usuário
+// ----------------------
+// POST /api/posts
+// ----------------------
+app.post('/api/posts', async (req, res) => {
+  try {
+    const { title, body, userId } = req.body;
+
+    // Cria um post localmente com ID incremental
+    const newId = localPosts.length
+      ? localPosts[localPosts.length - 1].id + 1
+      : 1001; // Começa após os 100 da API pública
+
+    const newPost = { id: newId, title, body, userId };
+
+    localPosts.unshift(newPost); // adiciona no início
+    res.status(201).json(newPost);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao criar post' });
+  }
+});
+
+// ----------------------
+// Estatísticas simples
+// ----------------------
 app.get('/api/stats/posts-by-user', async (req, res) => {
   try {
     const response = await axios.get(`${PUBLIC_API_BASE}/posts`);
     const posts = response.data;
+    const all = [...localPosts, ...posts];
 
     const counts = {};
-    posts.forEach(p => {
+    all.forEach(p => {
       counts[p.userId] = (counts[p.userId] || 0) + 1;
     });
 
     res.json(counts);
   } catch (err) {
-    console.error(err.message || err);
     res.status(500).json({ error: 'Erro ao gerar estatísticas' });
   }
 });
-// Criar novo post (simulação)
-app.post('/api/posts', async (req, res) => {
-    try {
-      const novoPost = await axios.post('https://jsonplaceholder.typicode.com/posts', req.body);
-      res.json(novoPost.data);
-    } catch (err) {
-      res.status(500).json({ error: 'Erro ao criar post' });
-    }
-  });
 
 app.listen(PORT, () => {
   console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
