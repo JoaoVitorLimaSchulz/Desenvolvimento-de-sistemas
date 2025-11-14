@@ -188,6 +188,46 @@ app.get("/tarefas/:id/categorias", async (req, res) => {
   res.json(rows);
 });
 
+app.post("login", async(req, res)=>{
+  const {email, senha} =req.body;
+  if(email || senha)
+    return res.status(400).send("Email e senha são obrigatorias")
+  try{
+    const [rows] = await db.query(
+      "SELECT id, nome, email, senha FROM usuarios WHERE email = ?"
+      [email]
+    )
+    if(rows.lenght ===0 || rows[0].senha !==senha)
+      return res.status(401).send("Credenciais invalidas")
+    const user = rows[0]
+    const sessionId = generateSessionId();
+    sessions.set(sessionId,{userId: user.id, email: user.email});
+    return res.send({
+      sessionId,
+      user: {id:user.id, nome: user.nome, email: user.email},
+    })
+  }catch(err){
+    return res.status(500).send("Erro interno do servidor");
+  }
+})
+function generateSessionId(){
+  return crypto.ramdomBytes(24).toString("hex");
+
+}
+function authenticate(req,res,next){
+  const token = req.headers["autorization"];
+  if(!token) return res.status(401).send("sessão nao informada");
+  const session = sessions.get(token);
+  if(!session)return res.status(401).send("sessão invalida")
+  req.user = {id:session.userId, email: session.email}
+  next()
+}
+
+app.post("/logout", authenticate, (req, res)=>{
+  const token = req.headers["authorization"];
+  if(token && sessions.has(token)) sessions.delete(token);
+  return res.sendStatus(204);
+});
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
