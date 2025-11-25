@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendamentos</title>
+    <link rel="stylesheet" href="agendamentos.css" />
+</head>
+<body>
+
+    <header>
+        <h1>Gerenciar Agendamentos</h1>
+        <nav>
+            <a href="clientes.html">Clientes</a>
+            <a href="servicos.html">Serviços</a>
+            <a href="profissionais.html">Profissionais</a>
+            <a class="active" href="agendamentos.html">Agendamentos</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="form-section">
+            <h2>Novo Agendamento</h2>
+
+            <form id="form-agendamento">
+
+                <label>Cliente</label>
+                <select id="cliente_id" required></select>
+
+                <label>Serviço</label>
+                <select id="servico_id" required></select>
+
+                <label>Profissional</label>
+                <select id="profissional_id" required></select>
+
+                <label>Data</label>
+                <input type="date" id="data" required />
+
+                <label>Hora</label>
+                <input type="time" id="hora" required />
+
+                <button type="submit">Salvar Agendamento</button>
+            </form>
+        </section>
+
+        <section class="table-section">
+            <h2>Lista de Agendamentos</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Serviço</th>
+                        <th>Profissional</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-agendamentos">
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="agendamentos.js"></script>
+</body>
+</html>
