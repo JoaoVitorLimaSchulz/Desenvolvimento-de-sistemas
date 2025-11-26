@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Serviços</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gerenciar Serviços</h1>
+
+    <form id="formServicos">
+        <label>Nome do Serviço:</label>
+        <input type="text" id="nome" required>
+
+        <label>Valor (R$):</label>
+        <input type="number" id="valor" required step="0.01">
+
+        <label>Duração Estimada (minutos):</label>
+        <input type="number" id="duracao" required min="10">
+
+        <button type="submit">Cadastrar Serviço</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Serviço</th>
+                <th>Valor</th>
+                <th>Duração (min)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="listaServicos"></tbody>
+    </table>
+</div>
+
+<script src="./scripts/servicos.js"></script>
+
+</body>
+</html>

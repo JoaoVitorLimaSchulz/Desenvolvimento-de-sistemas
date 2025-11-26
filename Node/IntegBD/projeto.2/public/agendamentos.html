@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Agendamentos</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gerenciar Agendamentos</h1>
+
+    <form id="formAgendar">
+
+        <label>Cliente:</label>
+        <select id="cliente" required></select>
+
+        <label>Serviço:</label>
+        <select id="servico" required></select>
+
+        <label>Profissional:</label>
+        <select id="profissional" required></select>
+
+        <label>Data:</label>
+        <input type="date" id="data" required>
+
+        <label>Hora de Início:</label>
+        <input type="time" id="hora" required>
+
+        <label>Duração Prevista (min):</label>
+        <input type="number" id="duracao" required min="10">
+
+        <button type="submit">Cadastrar Agendamento</button>
+    </form>
+
+    <h2>Lista de Agendamentos</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Profissional</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="listaAgendamentos"></tbody>
+    </table>
+
+</div>
+
+<script src="./scripts/agendamentos.js"></script>
+
+</body>
+</html>

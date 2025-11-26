@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Profissionais</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gerenciar Profissionais</h1>
+
+    <form id="formProfissionais">
+        <label>Nome:</label>
+        <input type="text" id="nome" required>
+
+        <label>Especialidade:</label>
+        <input type="text" id="especialidade" required>
+
+        <label>Telefone:</label>
+        <input type="text" id="telefone" required>
+
+        <button type="submit">Cadastrar Profissional</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Profissional</th>
+                <th>Especialidade</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="listaProfissionais"></tbody>
+    </table>
+</div>
+
+<script src="./scripts/profissionais.js"></script>
+
+</body>
+</html>
