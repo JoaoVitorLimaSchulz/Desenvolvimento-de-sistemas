@@ -22,10 +22,10 @@ document.getElementById("formLogin").addEventListener("submit", async (e) => {
 
     erro.textContent = "";
 
-    // Armazena sessão no navegador
+   
     localStorage.setItem("usuario", JSON.stringify(resultado.usuario));
     localStorage.setItem("token", resultado.token);
 
-    // Redireciona para o painel
+
     window.location.href = "dashboard.html";
 });
