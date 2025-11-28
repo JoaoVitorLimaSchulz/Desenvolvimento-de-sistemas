@@ -8,53 +8,52 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-// Helper para erros
 function handleError(res, err, msg = 'Erro interno') {
   console.error(err);
   return res.status(500).json({ error: msg });
 }
 
 
-app.get('/clientes', async (req, res) => {
+app.get('/cliente', async (req, res) => {
   const q = req.query.q || '';
   try {
-    const [rows] = await pool.query('SELECT * FROM clientes WHERE nome LIKE ? ORDER BY nome', [`%${q}%`]);
+    const [rows] = await pool.query('SELECT * FROM cliente WHERE nome LIKE ? ORDER BY nome', [`%${q}%`]);
     res.json(rows);
-  } catch (err) { handleError(res, err, 'Erro ao listar clientes.'); }
+  } catch (err) { handleError(res, err, 'Erro ao listar cliente.'); }
 });
 
-app.get('/clientes/:id', async (req, res) => {
+app.get('/cliente/:id', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM clientes WHERE id = ?', [req.params.id]);
+    const [rows] = await pool.query('SELECT * FROM cliente WHERE id = ?', [req.params.id]);
     if (rows.length === 0) return res.status(404).json({ error: 'Cliente não encontrado.' });
     res.json(rows[0]);
   } catch (err) { handleError(res, err); }
 });
 
-app.post('/clientes', async (req, res) => {
-  const { nome, telefone, email, endereco } = req.body;
+app.post('/cliente', async (req, res) => {
+  const { nome, telefone, email } = req.body;
   if (!nome) return res.status(400).json({ error: 'Nome é obrigatório.' });
   try {
-    const [result] = await pool.query('INSERT INTO clientes (nome, telefone, email, endereco) VALUES (?, ?, ?, ?)', [nome, telefone || null, email || null, endereco || null]);
-    const [row] = await pool.query('SELECT * FROM clientes WHERE id = ?', [result.insertId]);
+    const [result] = await pool.query('INSERT INTO cliente (nome, telefone, email, endereco) VALUES (?, ?, ?, ?)', [nome, telefone || null, email || null, endereco || null]);
+    const [row] = await pool.query('SELECT * FROM cliente WHERE id = ?', [result.insertId]);
     res.status(201).json(row[0]);
   } catch (err) { handleError(res, err, 'Erro ao criar cliente.'); }
 });
 
-app.put('/clientes/:id', async (req, res) => {
+app.put('/cliente/:id', async (req, res) => {
   const id = req.params.id;
   const { nome, telefone, email, endereco } = req.body;
   if (!nome) return res.status(400).json({ error: 'Nome é obrigatório.' });
   try {
-    await pool.query('UPDATE clientes SET nome=?, telefone=?, email=?, endereco=? WHERE id=?', [nome, telefone || null, email || null, endereco || null, id]);
-    const [row] = await pool.query('SELECT * FROM clientes WHERE id = ?', [id]);
+    await pool.query('UPDATE cliente SET nome=?, telefone=?, email=?, endereco=? WHERE id=?', [nome, telefone || null, email || null, endereco || null, id]);
+    const [row] = await pool.query('SELECT * FROM cliente WHERE id = ?', [id]);
     res.json(row[0]);
   } catch (err) { handleError(res, err, 'Erro ao atualizar cliente.'); }
 });
 
-app.delete('/clientes/:id', async (req, res) => {
+app.delete('/cliente/:id', async (req, res) => {
   try {
-    await pool.query('DELETE FROM clientes WHERE id = ?', [req.params.id]);
+    await pool.query('DELETE FROM cliente WHERE id = ?', [req.params.id]);
     res.json({ ok: true });
   } catch (err) { handleError(res, err, 'Erro ao excluir cliente.'); }
 });
@@ -105,46 +104,46 @@ app.delete('/servicos/:id', async (req, res) => {
 });
 
 
-app.get('/profissionais', async (req, res) => {
+app.get('/profissional', async (req, res) => {
   const q = req.query.q || '';
   try {
-    const [rows] = await pool.query('SELECT * FROM profissionais WHERE nome LIKE ? ORDER BY nome', [`%${q}%`]);
+    const [rows] = await pool.query('SELECT * FROM profissional WHERE nome LIKE ? ORDER BY nome', [`%${q}%`]);
     res.json(rows);
-  } catch (err) { handleError(res, err, 'Erro ao listar profissionais.'); }
+  } catch (err) { handleError(res, err, 'Erro ao listar profissional.'); }
 });
 
-app.get('/profissionais/:id', async (req, res) => {
+app.get('/profissional/:id', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM profissionais WHERE id = ?', [req.params.id]);
+    const [rows] = await pool.query('SELECT * FROM profissional WHERE id = ?', [req.params.id]);
     if (rows.length === 0) return res.status(404).json({ error: 'Profissional não encontrado.' });
     res.json(rows[0]);
   } catch (err) { handleError(res, err); }
 });
 
-app.post('/profissionais', async (req, res) => {
+app.post('/profissional', async (req, res) => {
   const { nome, especialidade, telefone, status } = req.body;
   if (!nome) return res.status(400).json({ error: 'Nome é obrigatório.' });
   try {
-    const [result] = await pool.query('INSERT INTO profissionais (nome, especialidade, telefone, status) VALUES (?, ?, ?, ?)', [nome, especialidade || null, telefone || null, status || 'ativo']);
-    const [row] = await pool.query('SELECT * FROM profissionais WHERE id = ?', [result.insertId]);
+    const [result] = await pool.query('INSERT INTO profissional (nome, especialidade, telefone, status) VALUES (?, ?, ?, ?)', [nome, especialidade || null, telefone || null, status || 'ativo']);
+    const [row] = await pool.query('SELECT * FROM profissional WHERE id = ?', [result.insertId]);
     res.status(201).json(row[0]);
   } catch (err) { handleError(res, err, 'Erro ao criar profissional.'); }
 });
 
-app.put('/profissionais/:id', async (req, res) => {
+app.put('/profissional/:id', async (req, res) => {
   const id = req.params.id;
   const { nome, especialidade, telefone, status } = req.body;
   if (!nome) return res.status(400).json({ error: 'Nome é obrigatório.' });
   try {
-    await pool.query('UPDATE profissionais SET nome=?, especialidade=?, telefone=?, status=? WHERE id=?', [nome, especialidade || null, telefone || null, status || 'ativo', id]);
-    const [row] = await pool.query('SELECT * FROM profissionais WHERE id = ?', [id]);
+    await pool.query('UPDATE profissional SET nome=?, especialidade=?, telefone=?, status=? WHERE id=?', [nome, especialidade || null, telefone || null, status || 'ativo', id]);
+    const [row] = await pool.query('SELECT * FROM profissional WHERE id = ?', [id]);
     res.json(row[0]);
   } catch (err) { handleError(res, err, 'Erro ao atualizar profissional.'); }
 });
 
-app.delete('/profissionais/:id', async (req, res) => {
+app.delete('/profissional/:id', async (req, res) => {
   try {
-    await pool.query('DELETE FROM profissionais WHERE id = ?', [req.params.id]);
+    await pool.query('DELETE FROM profissional WHERE id = ?', [req.params.id]);
     res.json({ ok: true });
   } catch (err) { handleError(res, err, 'Erro ao excluir profissional.'); }
 });
@@ -186,9 +185,9 @@ app.post('/agendamentos', async (req, res) => {
     const [newRow] = await pool.query(
       `SELECT a.*, c.nome as cliente_nome, s.nome as servico_nome, p.nome as profissional_nome
        FROM agendamentos a
-       JOIN clientes c ON c.id = a.cliente_id
+       JOIN cliente c ON c.id = a.cliente_id
        JOIN servicos s ON s.id = a.servico_id
-       JOIN profissionais p ON p.id = a.profissional_id
+       JOIN profissional p ON p.id = a.profissional_id
        WHERE a.id = ?`, [result.insertId]);
 
     res.status(201).json(newRow[0]);
@@ -200,9 +199,9 @@ app.get('/agendamentos', async (req, res) => {
     const [rows] = await pool.query(
       `SELECT a.*, c.nome as cliente_nome, s.nome as servico_nome, p.nome as profissional_nome
        FROM agendamentos a
-       JOIN clientes c ON c.id = a.cliente_id
+       JOIN cliente c ON c.id = a.cliente_id
        JOIN servicos s ON s.id = a.servico_id
-       JOIN profissionais p ON p.id = a.profissional_id
+       JOIN profissional p ON p.id = a.profissional_id
        ORDER BY a.data, a.hora_inicio`
     );
     res.json(rows);
@@ -214,9 +213,9 @@ app.get('/agendamentos/:id', async (req, res) => {
     const [rows] = await pool.query(
       `SELECT a.*, c.nome as cliente_nome, s.nome as servico_nome, p.nome as profissional_nome
        FROM agendamentos a
-       JOIN clientes c ON c.id = a.cliente_id
+       JOIN cliente c ON c.id = a.cliente_id
        JOIN servicos s ON s.id = a.servico_id
-       JOIN profissionais p ON p.id = a.profissional_id
+       JOIN profissional p ON p.id = a.profissional_id
        WHERE a.id = ?`, [req.params.id]);
     if (rows.length === 0) return res.status(404).json({ error: 'Agendamento não encontrado.' });
     res.json(rows[0]);

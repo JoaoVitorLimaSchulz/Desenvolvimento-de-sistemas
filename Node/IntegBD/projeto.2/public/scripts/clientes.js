@@ -1,6 +1,6 @@
-const apiUrl = "http://localhost:3000/clientes";
+const apiUrl = "http://localhost:3000/cliente";
 
-// === LISTAR CLIENTES ===
+
 async function carregarClientes() {
     const resposta = await fetch(apiUrl);
     const clientes = await resposta.json();
@@ -24,7 +24,7 @@ async function carregarClientes() {
     });
 }
 
-// === CADASTRAR CLIENTE ===
+
 document.getElementById("formClientes").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -42,7 +42,7 @@ document.getElementById("formClientes").addEventListener("submit", async (e) => 
     e.target.reset();
 });
 
-// === EXCLUIR CLIENTE ===
+
 async function excluirCliente(id) {
     if (!confirm("Deseja realmente excluir este cliente?")) return;
 
@@ -50,7 +50,7 @@ async function excluirCliente(id) {
     carregarClientes();
 }
 
-// === EDITAR (CARREGAR DADOS) ===
+
 async function editarCliente(id) {
     const novoNome = prompt("Novo nome:");
     const novoEmail = prompt("Novo email:");
@@ -71,5 +71,4 @@ async function editarCliente(id) {
     carregarClientes();
 }
 
-// inicializar
 carregarClientes();

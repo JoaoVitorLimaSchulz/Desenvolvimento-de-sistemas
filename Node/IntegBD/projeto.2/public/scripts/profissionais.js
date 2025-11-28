@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000/profissionais";
+const apiUrl = "http://localhost:3000/profissional";
 
 // === LISTAGEM ===
 async function carregarProfissionais() {
